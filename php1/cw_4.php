@@ -14,49 +14,52 @@ if(!isset($_SESSION['zalogowany']))
 <body>
 	<?php
 	
-	echo "Witaj: <b>".$_SESSION["zalogowany_uzytkownik"]."<b> <br>"; /*wywo³anie zmiennej sesyjnej
+	echo "Witaj: <b>".$_SESSION["zalogowany_uzytkownik"]."<b> <br>"; /*wywolanie zmiennej sesyjnej
 	$_SESSION["zalogowany_uzytkownik"] */
 	echo "<hr><br />";
 	if( isset($_POST['a']) && isset($_POST['b']) && isset($_POST['dzialanie']) )
 	{
-		echo "<hr>Twoje poprzednie dzia³anie: <br />";
+		echo "<hr>Twoje poprzednie dzialanie: <br />";
 		$a=$_POST["a"];
 		$b=$_POST["b"];
 		$dzialanie=$_POST["dzialanie"];
 		$wynik;
-		
-		if($a=='' || $b=='')
-		{
-			echo "Musisz podaæ dwie liczby";
-		}
-		
-		else if ($dzialanie==1)
-		{
-			$wynik=$a+$b;
-			echo $a."+".$b."=".$wynik;
-		}
-		else if ($dzialanie==2)
-		{
-			$wynik=$a-$b;
-			echo $a."-".$b."=".$wynik;
-		}
-		else if ($dzialanie==3)
-		{
-			$wynik=$a*$b;
-			echo $a."*".$b."=".$wynik;
-		}
-		else if ($dzialanie==4)
-		{
-			if($b=='0')
-			{
-				echo "Nie dziel przez zero";
-			}
-			else
-			{
-				$wynik=$a/$b;
-				echo $a.":".$b."=".$wynik;
+	
+		if (is_numeric($a) && is_numeric($b)) {
+			switch ($dzialanie) {
+				case 1:		
+					$wynik=$a+$b;
+					echo $a."+".$b."=" .$wynik;
+					break;
+				case 2:
+					$wynik=$a-$b;
+					echo $a."-".$b."=".$wynik;
+					break;
+				case 3:
+					$wynik=$a*$b;
+					echo $a."*".$b."=".$wynik;
+					break;
+
+				case 4:
+					if($b=='0')
+					{
+						echo "Nie dziel przez zero";
+					}
+					else
+					{
+						$wynik=$a/$b;
+						echo $a.":".$b."=".$wynik;
+					}
+					break;
 			}
 		}
+		else if($a=='' || $b=='')
+		{
+			echo "Musisz podaÄ‡ dwie liczby";			
+		}
+		else {
+			echo "Podane wartoÅ›ci muszÄ… byÄ‡ liczbami";
+		}		
 		echo '<hr><br /><br /><a href="cw_5.php">Wyloguj</a><br />';
 	}
 	?>
@@ -68,7 +71,7 @@ if(!isset($_SESSION['zalogowany']))
 		<select name="dzialanie">
 			<option value="1">+ -dodawanie</option>
 			<option value="2">- -odejmowanie</option>
-			<option value="3">* -mno¿enie</option>
+			<option value="3">* -mnoÅ¼enie</option>
 			<option value="4">/ -dzielenie</option>
 		</select>
 		<p>
@@ -76,6 +79,7 @@ if(!isset($_SESSION['zalogowany']))
 		</p>
 		<input type="submit" name="zaloguj" value="Oblicz"/>
 	</form>
+	
 </body>
 </html>
 		
